@@ -8,7 +8,7 @@ const cors = require("cors");
 user.hasMany(post);
 post.belongsTo(user);
 
-const { PORT } = process.env;
+const { SERVER_PORT } = process.env;
 const {
   getAllPosts,
   getCurrentPosts,
@@ -22,7 +22,7 @@ const { isAuthenticated } = require("./middleware/isAuthenticated");
 
 const app = express();
 
-app.use(express.json);
+app.use(express.json());
 app.use(cors());
 
 //AUTH
@@ -44,8 +44,8 @@ app.delete("/posts/:id", isAuthenticated, deletePost);
 sequelize
   .sync()
   .then(() => {
-    app.listen(PORT, () =>
-      console.log(`db successful & server running on port ${PORT}`)
+    app.listen(SERVER_PORT, () =>
+      console.log(`db successful & server running on port ${SERVER_PORT}`)
     );
   })
   .catch((err) => console.log(err));

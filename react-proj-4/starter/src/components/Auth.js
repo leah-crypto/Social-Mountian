@@ -1,10 +1,9 @@
 import { useState, useContext } from "react";
-import axios from 'axios';
+import axios from "axios";
 import AuthContext from "../store/authContext";
 
-
 const Auth = () => {
-const authCtx = useContext(AuthContext)
+  const authCtx = useContext(AuthContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -14,21 +13,22 @@ const authCtx = useContext(AuthContext)
     e.preventDefault();
 
     const body = {
-        username,
-        password
-    }
+      username,
+      password,
+    };
 
-    const url = 'https://socialmtn.devmountain.com'
+    const url = "https://socialmtn.devmountain.com";
 
-    axios.post(register ? `${url}/register` : `${url}/login`, body)
-    .then(({data}) => {
-        console.log('after auth', data)
-        authCtx.login(data.token, data.exp, data.userId)
-    })
-    .catch(err => {
-        setPassword('')
-        setUsername('')
-    })
+    axios
+      .post(register ? `${url}/register` : `${url}/login`, body)
+      .then(({ data }) => {
+        console.log("after auth", data);
+        authCtx.login(data.token, data.exp, data.userId);
+      })
+      .catch((err) => {
+        setPassword("");
+        setUsername("");
+      });
 
     // console.log("submitHandler called");
   };

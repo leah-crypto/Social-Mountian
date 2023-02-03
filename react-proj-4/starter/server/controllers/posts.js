@@ -43,8 +43,10 @@ module.exports = {
   },
 
   addPost: async (req, res) => {
-    // console.log("add post");
+    
+    
     try{
+      console.log("add post");
       const {title, content, status, userId} = req.body
       await post.create({title, content, privateStatus: status, userId})
       res.sendStatus(200)

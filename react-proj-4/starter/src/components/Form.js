@@ -28,10 +28,11 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("hit!")
 
     axios
       .post(
-        "/posts",
+        "http://localhost:4005/posts",
         { title, content, status, userId },
         {
           headers: {
@@ -39,7 +40,9 @@ const Form = () => {
           },
         }
       )
+      
       .then(() => {
+        console.log("HI!")
         navigate("/profile");
       })
       .catch((err) => console.log(err));

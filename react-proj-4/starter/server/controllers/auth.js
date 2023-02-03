@@ -3,6 +3,19 @@ const { SECRET } = process.env;
 const { user } = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+ 
+const createToken = (username, id) => {
+  return jwt.sign(
+    {
+      username,
+      id,
+    },
+    SECRET,
+    {
+      expiresIn: "2 days",
+    }
+  );
+};
 
 module.exports = {
   register: async (req, res) => {
@@ -16,9 +29,9 @@ module.exports = {
         const hash = bcrypt.hashSync(password, salt);
         const newUser = await user.create({ username, hashedPass: hash });
         const token = createToken(
-          newUser.dataValues.username,
-          newUser.dataValues.id
-        );
+          foundUser.dataValues.username,
+          foundUser.dataValues.id
+        )
         console.log("tooooken!", token);
         const exp = Date.now() + 1000 * 60 * 60 * 48;
         res.status(200).send({
@@ -73,15 +86,4 @@ module.exports = {
   },
 };
 
-const createToken = (username, id) => {
-  return jwt.sign(
-    {
-      username,
-      id,
-    },
-    SECRET,
-    {
-      expiresIn: "2 days",
-    }
-  );
-};
+
