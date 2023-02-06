@@ -1,16 +1,16 @@
 require("dotenv").config();
-const { SECRET } = process.env;
+const { JWT_SECRET } = process.env;
 const { user } = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
- 
+
 const createToken = (username, id) => {
   return jwt.sign(
     {
       username,
       id,
     },
-    SECRET,
+    JWT_SECRET,
     {
       expiresIn: "2 days",
     }
@@ -29,9 +29,9 @@ module.exports = {
         const hash = bcrypt.hashSync(password, salt);
         const newUser = await user.create({ username, hashedPass: hash });
         const token = createToken(
-          foundUser.dataValues.username,
-          foundUser.dataValues.id
-        )
+          newUser.dataValues.username,
+          newUser.dataValues.id
+        );
         console.log("tooooken!", token);
         const exp = Date.now() + 1000 * 60 * 60 * 48;
         res.status(200).send({
@@ -85,5 +85,3 @@ module.exports = {
     // console.log('login')
   },
 };
-
-

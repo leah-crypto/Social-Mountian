@@ -1,4 +1,4 @@
-const { post } = require('../models/post')
+const { post } = require('../models/post');
 const { user } = require('../models/user');
 const { sequelize } = require('../utli/database');
 

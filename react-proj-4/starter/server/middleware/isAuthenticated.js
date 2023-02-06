@@ -1,12 +1,12 @@
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
-const {SECRET} = process.env
+const {JWT_SECRET} = process.env
 
 module.exports = {
     isAuthenticated: (req, res, next) => {
         const headerToken = req.get('Authorization')
         
-        console.log(headerToken, "header toooken")
+        console.log(JWT_SECRET, headerToken, "header toooken")
         if (!headerToken) {
             console.log('ERROR IN auth middleware')
             res.sendStatus(401)
@@ -15,10 +15,14 @@ module.exports = {
         let token
 
         try {
-            token = jwt.verify(headerToken, SECRET)
+            token = jwt.verify(headerToken, JWT_SECRET, (err, decoded) => {
+                if(err){
+                    console.log(decoded);
+                }
+            })
         } catch (err) {
             err.statusCode = 500
-            console.log("coming fr0m here")
+            console.log("coming from here")
             throw err
         }
 
