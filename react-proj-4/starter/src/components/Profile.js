@@ -30,7 +30,7 @@ const Profile = () => {
 
   useEffect(() => {
     getUserPosts();
-  }, [getUserPosts]);
+  }, []);
 
   const updatePost = (id, status) => {
     axios

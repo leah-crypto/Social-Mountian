@@ -16,7 +16,6 @@ app.use(cors());
 const { SERVER_PORT } = process.env;
 const {
   getAllPosts,
-  getCurrentPosts,
   addPost,
   deletePost,
   getCurrentUserPosts,
@@ -44,9 +43,9 @@ app.put("/posts/:id", isAuthenticated, editPost);
 app.delete("/posts/:id", isAuthenticated, deletePost);
 
 sequelize
-  .sync({
-    force: true
-  })
+  .sync(
+    
+  )
   .then(() => {
     app.listen(SERVER_PORT, () =>
       console.log(`db successful & server running on port ${SERVER_PORT}`)

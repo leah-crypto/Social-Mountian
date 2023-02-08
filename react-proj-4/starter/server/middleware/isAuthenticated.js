@@ -15,12 +15,9 @@ module.exports = {
     let token;
 
     try {
-      token = jwt.verify(headerToken, JWT_SECRET, (err, decoded) => {
-        if (err) {
-          console.log(err, "err");
-        }
-      });
-    } catch (err) {
+      token = jwt.verify(headerToken, JWT_SECRET) 
+        
+     } catch (err) {
       err.statusCode = 500;
       console.log("coming from here");
       throw err;

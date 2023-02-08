@@ -26,6 +26,7 @@ module.exports = {
     // console.log("currnt user posts");
     try {
       const {userId} = req.params
+      console.log(req.params)
       const posts = await post.findAll({
         where: {userId: userId},
         include: [{
